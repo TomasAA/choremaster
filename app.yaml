@@ -31,9 +31,7 @@ handlers:
   handler: POST:resources/users.dart:Users.create  
   
 - url: /users 
-  match: exact
   handler: GET:resources/users.dart:Users.getAll
-  
   
 # Static content, will be served by your app's Nginx instance 
 - url: /
