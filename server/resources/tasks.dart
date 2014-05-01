@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:vane/vane.dart';
 import '../../client/web/lib/models/models.dart';
 
-class TasksResource extends Vane {
+class Tasks extends Vane {
   // Get state for all tasks
   Future getAll() {
     return close("All tasks");

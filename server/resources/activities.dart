@@ -3,7 +3,7 @@ import 'package:vane/vane.dart';
 import '../../client/web/lib/models/models.dart';
 
 // /activities
-class ActivitiesResource extends Vane {
+class Activities extends Vane {
   // Get all activities 
   Future getAll() {
    return close("All activities");

@@ -3,7 +3,7 @@ import 'package:vane/vane.dart';
 import '../../client/web/lib/models/models.dart';
 
 // /users
-class UsersResource extends Vane {
+class Users extends Vane {
   // Get all users 
   Future getAll() {
     return close("All users");
