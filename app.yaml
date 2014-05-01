@@ -18,10 +18,11 @@ handlers:
   handler: DELETE:todo.dart:Todo.delete 
 
 # Handlers for /users resource
-- url: /users 
+- url: /users
+  match: exact  
   handler: GET:resources/users.dart:Users.getAll
     
-- url: ^/users/(.*)$
+- url:  ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
 
 - url: ^/users/(.*)$ 
