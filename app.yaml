@@ -18,9 +18,11 @@ handlers:
   handler: DELETE:todo.dart:Todo.delete 
 
 # Handlers for /users resource
-- url: /users
-  match: exact  
-  handler: GET:resources/users.dart:Users.getAll
+- url: ^/users/points/(.*)$ 
+  handler: GET:resources/users.dart:Users.getPoints
+
+- url: ^/users/points/(.*)$  
+  handler: POST:resources/users.dart:Users.addPoints
     
 - url:  ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
@@ -28,11 +30,8 @@ handlers:
 - url: ^/users/(.*)$ 
   handler: POST:resources/users.dart:Users.create  
 
-- url: ^/users/points/(.*)$ 
-  handler: GET:resources/users.dart:Users.getPoints
-
-- url: ^/users/points/(.*)$  
-  handler: POST:resources/users.dart:Users.addPoints
+- url: /users
+  handler: GET:resources/users.dart:Users.getAll
     
 # Static content, will be served by your app's Nginx instance 
 - url: /
