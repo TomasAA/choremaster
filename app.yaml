@@ -17,22 +17,22 @@ handlers:
 - url: /todos 
   handler: DELETE:todo.dart:Todo.delete 
 
-# Handlers for /users resource   
-- url: ^/users/points/(.*)$ 
-  handler: GET:resources/users.dart:Users.getPoints
-
-- url: ^/users/points/(.*)$  
-  handler: POST:resources/users.dart:Users.addPoints
-  
+# Handlers for /users resource
+- url: /users 
+  handler: GET:resources/users.dart:Users.getAll
+    
 - url: ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
 
 - url: ^/users/(.*)$ 
   handler: POST:resources/users.dart:Users.create  
-  
-- url: /users 
-  handler: GET:resources/users.dart:Users.getAll
-  
+
+- url: ^/users/points/(.*)$ 
+  handler: GET:resources/users.dart:Users.getPoints
+
+- url: ^/users/points/(.*)$  
+  handler: POST:resources/users.dart:Users.addPoints
+    
 # Static content, will be served by your app's Nginx instance 
 - url: /
   match: postregex
