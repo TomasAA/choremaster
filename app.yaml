@@ -1,8 +1,8 @@
-application: Vane-Angular-Mongo-Todo
+application: Choremaster
 version: 1
 deploy: true
 pub: true
-dart2js: true 
+dart2js: false 
 
 handlers:
 - url: /todos 
@@ -18,16 +18,16 @@ handlers:
   handler: DELETE:todo.dart:Todo.delete 
 
 # Handlers for /users resource   
-- url: /users/points/(*) 
+- url: ^/users/points/(.*)$ 
   handler: GET:resources/users.dart:Users.getPoints
 
-- url: /users/points/(*) 
+- url: ^/users/points/(.*)$  
   handler: POST:resources/users.dart:Users.addPoints
   
-- url: /users/(*)
+- url: ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
 
-- url: /users/(*) 
+- url: ^/users/(.*)$ 
   handler: POST:resources/users.dart:Users.create  
   
 - url: /users 
