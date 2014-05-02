@@ -11,10 +11,10 @@ handlers:
 - url: ^/users/points/(.*)$ 
   handler: GET:resources/users.dart:Users.getPoints
 
-- url: ^/users/points/(.*)/(.*)$  
+- url: ^/users/points/(.*)\/(.*)$  
   handler: POST:resources/users.dart:Users.addPoints
   
-- url: ^/users/points/(.*)/(.*)$  
+- url: ^/users/points/(.*)\/(.*)$  
   handler: DELETE:resources/users.dart:Users.removePoints
     
 - url:  ^/users/(.*)$
