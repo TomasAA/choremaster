@@ -5,24 +5,17 @@ pub: true
 dart2js: false 
 
 handlers:
-- url: /todos 
-  handler: GET:todo.dart:Todo.getAll 
-
-- url: /todos 
-  handler: POST:todo.dart:Todo.add
-
-- url: /todos 
-  handler: PUT:todo.dart:Todo.update
-
-- url: /todos 
-  handler: DELETE:todo.dart:Todo.delete 
-
+# ************************************** # 
 # Handlers for /users resource
+# ************************************** # 
 - url: ^/users/points/(.*)$ 
   handler: GET:resources/users.dart:Users.getPoints
 
 - url: ^/users/points/(.*)$  
   handler: POST:resources/users.dart:Users.addPoints
+  
+- url: ^/users/points/(.*)$  
+  handler: DELETE:resources/users.dart:Users.removePoints
     
 - url:  ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
@@ -32,7 +25,44 @@ handlers:
 
 - url: /users
   handler: GET:resources/users.dart:Users.getAll
-    
+  
+# ************************************** # 
+# Handlers for /tasks resource  
+# ************************************** # 
+- url: ^/tasks/(.*)$ 
+  handler: GET:resources/tasks.dart:Tasks.getState
+
+- url: ^/tasks/(.*)$ 
+  handler: POST:resources/tasks.dart:Tasks.setState  
+  
+- url: /tasks
+  handler: GET:resources/tasks.dart:Tasks.getAll
+
+# ************************************** # 
+# Handlers for /activities resource
+# ************************************** # 
+- url:  ^/activities/(.*)$
+  handler: GET:resources/activities.dart:Activities.get 
+
+- url: ^/activities/(.*)$ 
+  handler: POST:resources/activities.dart:Activities.create  
+
+- url: /activities
+  handler: GET:resources/activities.dart:Activities.getAll
+  
+# ************************************** #   
+# Handlers for /logs resource
+# ************************************** # 
+- url:  ^/logs/(.*)$
+  handler: GET:resources/logs.dart:Logs.get 
+
+- url: ^/logs/(.*)$ 
+  handler: POST:resources/logs.dart:Logs.create 
+
+- url: /logs
+  handler: GET:resources/logs.dart:Logs.getAll
+# ************************************** # 
+
 # Static content, will be served by your app's Nginx instance 
 - url: /
   match: postregex

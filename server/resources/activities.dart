@@ -18,15 +18,5 @@ class Activities extends Vane {
   Future create() {
     return close("Creating activity");
   }
-  
-  // Get points for activity 'activity'
-  Future getPoints() {
-    return close("10");
-  }
-  
-  // Add points for activity 'activity'
-  Future addPoints() {
-    return close("adding x points");
-  }
 }
 

@@ -28,7 +28,10 @@ class Users extends Vane {
   Future addPoints() {
     return close("adding x points");
   }
+  
+  // Removing points for user 'user'
+  Future removePoints() {
+    return close("removing x points");
+  }
 }
 
-  
-  
