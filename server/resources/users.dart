@@ -99,7 +99,7 @@ class Users extends Vane {
     // Get user value from url, /users/$user
     var user = path[1];
     
-    print("Inside getPoints");
+    print("Inside getPoints user = $user");
     
     // Get a mongodb variable so that we can access the database 
     mongodb.then((mongodb) {
