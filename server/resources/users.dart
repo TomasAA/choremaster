@@ -5,6 +5,8 @@ import '../../client/web/lib/models/models.dart';
 class Users extends Vane {
   // Get all users 
   Future getAll() {
+    
+    print("Inside getAll");
 
     // Get a mongodb variable so that we can access the database 
     mongodb.then((mongodb) {
@@ -32,6 +34,8 @@ class Users extends Vane {
   Future get() {
     // Get user value from url, /users/$user
     var user = path[1];
+    
+    print("Inside get");
     
     // Get a mongodb variable so that we can access the database 
     mongodb.then((mongodb) {
@@ -65,6 +69,8 @@ class Users extends Vane {
     user.user = path[1];
     user.points = 0;
     
+    print("Inside create");
+    
     // Get a mongodb variable so that we can access the database 
     mongodb.then((mongodb) {
       // Create a collection variable so we can access a specific collection of 
@@ -92,6 +98,8 @@ class Users extends Vane {
   Future getPoints() {
     // Get user value from url, /users/$user
     var user = path[1];
+    
+    print("Inside getPoints");
     
     // Get a mongodb variable so that we can access the database 
     mongodb.then((mongodb) {
