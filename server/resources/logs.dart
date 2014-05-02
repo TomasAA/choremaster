@@ -10,13 +10,11 @@ class Logs extends Vane {
   
   // Add one log item
   Future create() {
-    
     return close("Adding log item");
   }
   
   // Get one log item for user 'user'
   Future get() {
-
     return close("Get log item");
   }
 }
