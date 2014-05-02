@@ -96,8 +96,8 @@ class Users extends Vane {
   
   // Get points for user 'user'
   Future getPoints() {
-    // Get user value from url, /users/$user
-    var user = path[1];
+    // Get user value from url, /users/points/$user
+    var user = path[2];
     
     print("Inside getPoints user = $user");
     
