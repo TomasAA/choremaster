@@ -16,8 +16,15 @@ class Users extends Vane {
       
       // Find all data that is in the collection "users", make it to a list
       usersColl.find().toList().then((List<Map> users) {
+        var userObjects = new List<UserModel>();
+        
+        // Create a list of user objects (to get rid of mongodb's _id)
+        users.forEach((user) {
+          userObjects.add(new UserModel.fromJson(user));
+        });
+        
         // Close sends the users list and closes the response 
-        close(users);
+        close(userObjects);
       }).catchError((e) {
         // If there was an error, return a empty list 
         close([]);
@@ -45,7 +52,7 @@ class Users extends Vane {
       
       // Find all data that is in the collection "users", make it to a list
       usersColl.findOne({"user": user}).then((Map user) {
-        // Create a new user object (to get rid of mongodb _id) 
+        // Create a new user object (to get rid of mongodb's _id) 
         var userObject = new UserModel.fromJson(user);
         
         // Close sends the user object and closes the response 
