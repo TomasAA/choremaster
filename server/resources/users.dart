@@ -116,11 +116,11 @@ class Users extends Vane {
         close(userObject.points);
       }).catchError((e) {
         // If there was an error, return a empty map 
-        close({});
+        close(0);
       });
     }).catchError((e) {
       // If there was an error, return a empty map 
-      close({});
+      close(0);
     });
     
     return end;
@@ -165,7 +165,39 @@ class Users extends Vane {
   
   // Removing points for user 'user'
   Future removePoints() {
-    return close("removing x points");
+    // Get points value from url, /users/points/$user/$points
+    var user = path[2];
+    var points = path[3];
+    
+    print("Removing $points new points to user $user");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var usersColl = mongodb.collection("users");
+
+      // Find all data that is in the collection "users", make it to a list
+      usersColl.findOne({"user": user}).then((Map user) {
+        if(user != null) {          
+          // Add more points to user
+          user["points"] = user["points"] - int.parse(points);
+          
+          // Save changes
+          usersColl.save(user);
+        }
+        
+        close("ok");
+      }).catchError((e) {
+        log.warning("Unable to update user: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update user: ${e}");
+      close("error");
+    });
+    
+    return end;
   }
 }
 
