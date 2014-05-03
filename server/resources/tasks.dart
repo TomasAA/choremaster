@@ -79,6 +79,9 @@ class Tasks extends Vane {
 
     // Get name type from url, /tasks/$name/$type/$points
     task.type = path[2];
+    
+    // Set state as default to false
+    task.state = false;
 
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
