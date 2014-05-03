@@ -169,9 +169,11 @@ class Users extends Vane {
      usersColl.findOne({"user": user, "password": password}).then((Map user) {
        if(user != null) {          
          // If a user was found, return true
+         print("User was authenticate");
          close(true);
        } else {
          // Else return false if no user was found
+         print("Bad username or password");
          close(false);
        }
      }).catchError((e) {

@@ -47,12 +47,12 @@ handlers:
 # ************************************** # 
 # Handlers for /activities resource
 # ************************************** # 
+- url: ^/activities/(.*)/(.*)/(.*)$ 
+  handler: POST:resources/activities.dart:Activities.create
+  
 - url:  ^/activities/(.*)$
   handler: GET:resources/activities.dart:Activities.get 
-
-- url: ^/activities/(.*)$ 
-  handler: POST:resources/activities.dart:Activities.create  
-
+ 
 - url: /activities
   handler: GET:resources/activities.dart:Activities.getAll
   
