@@ -94,6 +94,36 @@ class Users extends Vane {
     return end;
   }
   
+  // Delete user 'user'
+  Future delete() {
+    // Get user value from url, /users/$user   
+    var user = path[1];
+    
+    print("Inside delete");
+    
+    // Get a mongodb variable so that we can access the database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var usersColl = mongodb.collection("users");
+      
+      // Delete user from database 
+      usersColl.remove({"user": user}).then((dbRes) {
+        log.info("Mongodb: ${dbRes}");
+        
+        close("ok");
+      }).catchError((e) {
+        log.warning("Unable to delete user: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to delete user: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
+  
   // Get points for user 'user'
   Future getPoints() {
     // Get user value from url, /users/points/$user

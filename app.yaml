@@ -22,6 +22,9 @@ handlers:
 
 - url: ^/users/(.*)$ 
   handler: POST:resources/users.dart:Users.create  
+  
+- url: ^/users/(.*)$ 
+  handler: DELETE:resources/users.dart:Users.delete 
 
 - url: /users
   handler: GET:resources/users.dart:Users.getAll
