@@ -77,13 +77,25 @@ class Users extends Vane {
       // data from the database
       var usersColl = mongodb.collection("users");
       
-      // Save new user to database 
-      usersColl.insert(user.toJson()).then((dbRes) {
-        log.info("Mongodb: ${dbRes}");
-        
-        close("ok");
+      // Check that username is not already taken
+      usersColl.findOne({"user": user.user}).then((Map existingUser) {
+        // If we did not find any existing user with the same username, then
+        // create the new user
+        if(existingUser == null) {
+          // Save new user to database 
+          usersColl.insert(user.toJson()).then((dbRes) {
+            log.info("Mongodb: ${dbRes}");
+            
+            close("ok");
+          }).catchError((e) {
+            log.warning("Unable to insert new user: ${e}");
+            close("error");
+          });
+        } else {
+          close("Error, user already exists");
+        }
       }).catchError((e) {
-        log.warning("Unable to insert new user: ${e}");
+        log.warning("Unable to search for existing user: ${e}");
         close("error");
       });
     }).catchError((e) {
