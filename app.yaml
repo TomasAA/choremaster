@@ -8,6 +8,9 @@ handlers:
 # ************************************** # 
 # Handlers for /users resource
 # ************************************** # 
+- url: ^/users/auth/(.*)/(.*)$  
+  handler: POST:resources/users.dart:Users.authenticate
+  
 - url: ^/users/points/(.*)/(.*)$  
   handler: POST:resources/users.dart:Users.addPoints
   
@@ -17,11 +20,11 @@ handlers:
 - url: ^/users/points/(.*)$ 
   handler: GET:resources/users.dart:Users.getPoints
 
+- url: ^/users/(.*)/(.*)$ 
+  handler: POST:resources/users.dart:Users.create 
+
 - url:  ^/users/(.*)$
   handler: GET:resources/users.dart:Users.get 
-
-- url: ^/users/(.*)$ 
-  handler: POST:resources/users.dart:Users.create  
   
 - url: ^/users/(.*)$ 
   handler: DELETE:resources/users.dart:Users.delete 

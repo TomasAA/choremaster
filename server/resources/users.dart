@@ -66,11 +66,11 @@ class Users extends Vane {
   Future create() {
     UserModel user = new UserModel();
     
-    // Get user value from url, /users/$user
+    // Get user value from url, /users/$user/$password
     user.user = path[1];
     
-    // Get user password from query paramters, /users/$user?password=$userPass
-    user.password = query["password"];
+    // Get user password from query paramters, /users/$user/$password
+    user.password = path[2];
     
     // Set points to 0
     user.points = 0;
@@ -140,6 +140,43 @@ class Users extends Vane {
     });
     
     return end;
+  }
+  
+  // Authenticate user 'user' with password 'password'
+  Future authenticate() {
+   // Get user value from url, /users/auth/$user/$password
+   var user = path[2];
+   
+   // Get user password from query paramters, /users/auth/$user/$password
+   var password = path[3];
+   
+   print("Trying to authenticate user $user with password $password");
+   
+   // Add item to database 
+   mongodb.then((mongodb) {
+     // Create a collection variable so we can access a specific collection of 
+     // data from the database
+     var usersColl = mongodb.collection("users");
+  
+     // Check if there is a user that has the provided username and password 
+     usersColl.findOne({"user": user, "password": password}).then((Map user) {
+       if(user != null) {          
+         // If a user was found, return true
+         close(true);
+       } else {
+         // Else return false if no user was found
+         close(false);
+       }
+     }).catchError((e) {
+       log.warning("Unable to update user: ${e}");
+       close(false);
+     });
+   }).catchError((e) {
+     log.warning("Unable to update user: ${e}");
+     close(false);
+   });
+   
+   return end;
   }
   
   // Get points for user 'user'
