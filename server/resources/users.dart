@@ -64,9 +64,15 @@ class Users extends Vane {
   
   // Create a new user 'user'
   Future create() {
-    // Get user value from url, /users/$user   
     UserModel user = new UserModel();
+    
+    // Get user value from url, /users/$user
     user.user = path[1];
+    
+    // Get user password from query paramters, /users/$user?password=$userPass
+    user.password = query["password"];
+    
+    // Set points to 0
     user.points = 0;
     
     print("Inside create");
