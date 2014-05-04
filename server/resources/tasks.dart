@@ -91,7 +91,13 @@ class Tasks extends Vane {
       task.desc = body.body;
       print(body.body.runtimeType);
       
-      for(var val in body.body) {
+      for(var val in body.body.keys) {
+        print(val);
+        print(val.runtimeType);
+      }
+      
+      for(var val in body.body.values) {
+        print(val);
         print(val.runtimeType);
       }
     }
