@@ -35,6 +35,12 @@ handlers:
 # ************************************** # 
 # Handlers for /tasks resource  
 # ************************************** #
+- url: ^/tasks/review/(.*)/(.*)$ 
+  handler: POST:resources/tasks.dart:Tasks.setReview
+
+- url: ^/tasks/review/(.*)$ 
+  handler: GET:resources/tasks.dart:Tasks.getReview
+
 - url: ^/tasks/state/(.*)/(.*)$ 
   handler: POST:resources/tasks.dart:Tasks.setState
   

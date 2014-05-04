@@ -4,6 +4,7 @@ class TaskModel {
   String name;
   String type;  // nfs or manual
   bool state;
+  bool review;
   String desc;
   int points;
   
@@ -13,6 +14,7 @@ class TaskModel {
     name = json["name"];
     type = json["type"];
     state = json["state"];
+    review = json["review"];
     desc = json["desc"];
     points = json["points"];
   }
@@ -22,6 +24,7 @@ class TaskModel {
       "name": name,
       "type": type,
       "state": state,
+      "review": review,
       "desc": desc,
       "points": points
     };

@@ -82,6 +82,9 @@ class Tasks extends Vane {
     
     // Set state as default to false
     task.state = false;
+    
+    // Set review as default to false
+    task.review = false;
 
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
@@ -231,4 +234,74 @@ class Tasks extends Vane {
     
     return end;
   }
+  
+  Future setReview() {
+    // Get values from url, /tasks/review/$task/$review
+    var name = path[3];
+    var review = path[4];
+    
+    print("Setting task $name to review $review");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
+
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"name": name}).then((Map task) {
+        if(task != null) {          
+          // Update review 
+          task["review"] = review;
+          
+          // Save changes
+          tasksColl.save(task);
+        }
+        
+        close("ok");
+      }).catchError((e) {
+        log.warning("Unable to update task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
+  
+  Future getReview() {
+    // Get values from url, /tasks/review/$task/$review
+    var name = path[3];
+    
+    print("Getting review for task $name");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
+
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"name": name}).then((Map task) {
+        if(task != null) {          
+          // Return review
+          close(task["review"]);
+        } else {
+          // Return state
+          close("Error, task $name could not be found");
+        }
+      }).catchError((e) {
+        log.warning("Unable to update task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
 }
+
