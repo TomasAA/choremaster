@@ -164,14 +164,71 @@ class Tasks extends Vane {
   }
 
   Future setState() {
-    // Set/update state for one task
+    // Get values from url, /tasks/$task/$state
+    var name = path[2];
+    var state = path[3];
+    
+    print("Setting task $name to state $state");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
 
-    return close("Setting state");
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"name": name}).then((Map task) {
+        if(task != null) {          
+          // Update state 
+          task["state"] = state;
+          
+          // Save changes
+          tasksColl.save(task);
+        }
+        
+        close("ok");
+      }).catchError((e) {
+        log.warning("Unable to update task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
   }
 
   Future getState() {
-    // Get state for one task
+    // Get values from url, /tasks/$task/$state
+    var name = path[2];
+    
+    print("Getting state for task $name");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
 
-    return close("Returning state for one task");
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"name": name}).then((Map task) {
+        if(task != null) {          
+          // Return state
+          close(task["state"]);
+        } else {
+          // Return state
+          close("Error, task $name could not be found");
+        }
+      }).catchError((e) {
+        log.warning("Unable to update task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
   }
 }

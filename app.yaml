@@ -35,11 +35,11 @@ handlers:
 # ************************************** # 
 # Handlers for /tasks resource  
 # ************************************** #
+- url: ^/tasks/state/(.*)/(.*)$ 
+  handler: POST:resources/tasks.dart:Tasks.setState
+  
 - url: ^/tasks/state/(.*)$ 
   handler: GET:resources/tasks.dart:Tasks.getState
-
-- url: ^/tasks/state/(.*)$ 
-  handler: POST:resources/tasks.dart:Tasks.setState  
   
 - url: ^/tasks/(.*)$ 
   handler: GET:resources/tasks.dart:Tasks.get
