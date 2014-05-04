@@ -13,6 +13,7 @@ class TaskModel {
     name = json["name"];
     type = json["type"];
     state = json["state"];
+    desc = json["desc"];
     points = json["points"];
   }
   
@@ -21,6 +22,7 @@ class TaskModel {
       "name": name,
       "type": type,
       "state": state,
+      "desc": desc,
       "points": points
     };
   }
