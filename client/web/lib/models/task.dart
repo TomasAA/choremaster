@@ -4,6 +4,7 @@ class TaskModel {
   String name;
   String type;  // nfs or manual
   bool state;
+  String desc;
   int points;
   
   TaskModel();

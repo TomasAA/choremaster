@@ -85,6 +85,9 @@ class Tasks extends Vane {
 
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
+    
+    // Get description from body of request 
+    task.desc = body.body;
 
     print("Inside create task");
 
