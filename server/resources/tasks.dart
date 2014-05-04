@@ -87,18 +87,10 @@ class Tasks extends Vane {
     task.points = path[3];
     
     // Get description from body of request
+    // Example of body data: "desc=Clean room"
     if(body.body != null) {
-      task.desc = body.body;
-      print(body.body.runtimeType);
-      
-      for(var val in body.body.keys) {
-        print(val);
-        print(val.runtimeType);
-      }
-      
-      for(var val in body.body.values) {
-        print(val);
-        print(val.runtimeType);
+      if(body.body.containsKey("desc") == true) {
+        task.desc = body.body["desc"];
       }
     }
     
