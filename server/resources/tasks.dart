@@ -89,7 +89,7 @@ class Tasks extends Vane {
     // Get description from body of request
     // Example of body data: "desc=Clean room"
     if(body.body != null) {
-      if(body.body.containsKey("desc") == true) {
+      if(body.body is Map && body.body.containsKey("desc") == true) {
         task.desc = body.body["desc"];
       }
     }
