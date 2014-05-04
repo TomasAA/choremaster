@@ -86,9 +86,11 @@ class Tasks extends Vane {
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
     
-    // Get description from body of request 
-    task.desc = body.body;
-
+    // Get description from body of request
+    if(body.body != null) {
+      task.desc = body.body[0];
+    }
+    
     print("Inside create task");
 
     // Get a mongodb variable so that we can access the database
@@ -114,7 +116,7 @@ class Tasks extends Vane {
             close("error");
           });
         } else {
-          close("Error, user already exists");
+          close("Error, task ${task.name} already exists");
         }
       }).catchError((e) {
         log.warning("Unable to search for existing task: ${e}");
