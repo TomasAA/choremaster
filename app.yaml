@@ -47,6 +47,9 @@ handlers:
 - url: ^/tasks/(.*)$ 
   handler: POST:resources/tasks.dart:Tasks.create
   
+- url: ^/tasks/(.*)$ 
+  handler: DELETE:resources/tasks.dart:Tasks.delete
+  
 - url: /tasks
   handler: GET:resources/tasks.dart:Tasks.getAll
 

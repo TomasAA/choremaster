@@ -132,6 +132,36 @@ class Tasks extends Vane {
 
     return end;
   }
+  
+  // Delete task 'task'
+  Future delete() {
+    // Get task name from url, /tasks/$name   
+    var name = path[1];
+    
+    print("Inside delete");
+    
+    // Get a mongodb variable so that we can access the database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
+      
+      // Delete user from database 
+      tasksColl.remove({"name": name}).then((dbRes) {
+        log.info("Mongodb: ${dbRes}");
+        
+        close("ok");
+      }).catchError((e) {
+        log.warning("Unable to delete task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to delete task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
 
   Future setState() {
     // Set/update state for one task
