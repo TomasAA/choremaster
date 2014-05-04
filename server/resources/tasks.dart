@@ -88,7 +88,12 @@ class Tasks extends Vane {
     
     // Get description from body of request
     if(body.body != null) {
-      task.desc = body.body[0];
+      task.desc = body.body;
+      print(body.body.runtimeType);
+      
+      for(var val in body.body) {
+        print(val.runtimeType);
+      }
     }
     
     print("Inside create task");
