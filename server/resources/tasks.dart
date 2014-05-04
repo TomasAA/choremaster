@@ -237,8 +237,8 @@ class Tasks extends Vane {
   
   Future setReview() {
     // Get values from url, /tasks/review/$task/$review
-    var name = path[3];
-    var review = path[4];
+    var name = path[2];
+    var review = path[3];
     
     print("Setting task $name to review $review");
     
@@ -273,7 +273,7 @@ class Tasks extends Vane {
   
   Future getReview() {
     // Get values from url, /tasks/review/$task/$review
-    var name = path[3];
+    var name = path[2];
     
     print("Getting review for task $name");
     
