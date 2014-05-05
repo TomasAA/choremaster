@@ -190,9 +190,9 @@ class Tasks extends Vane {
       // Find all data that is in the collection "users", make it to a list
       tasksColl.findOne({"name": name}).then((Map task) {
         if(task != null) { 
-          // If state changes from false to true, give points to assignee 
-          if(task["state"] == false) {
-            if(state == true) {
+          // If state changes from true to false, give points to assignee 
+          if(task["state"] == true) {
+            if(state == false) {
               if(task["assignee"] != "none") {
                 // Add points to assignee
                 addPoints(name, task["assignee"], 50);
