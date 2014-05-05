@@ -172,7 +172,12 @@ class Tasks extends Vane {
   Future setState() {
     // Get values from url, /tasks/$task/$state
     var name = path[2];
-    var state = path[3];
+    var state;
+    if(path[3].toLowerCase() == "true") {
+      state = true;
+    } else {
+      state = false;
+    }
     
     print("Setting task $name to state $state");
     
