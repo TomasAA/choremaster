@@ -190,25 +190,21 @@ class Tasks extends Vane {
       // Find all data that is in the collection "users", make it to a list
       tasksColl.findOne({"name": name}).then((Map task) {
         if(task != null) { 
-          // If state changes from false to true, then reset assignee and give 
-          // out points 
+          // If state changes from false to true, give points to assignee 
           if(task["state"] == false) {
-            print("Inside if 1");
             if(state == true) {
-              print("Inside if 2");
               if(task["assignee"] != "none") {
-                print("Inside if 3");
                 // Add points to assignee
                 addPoints(name, task["assignee"], 50);
-                
-                // Reset assignee to "none" again 
-                task["assignee"] = "none";
               }
             }
           }
           
           // Update state
           task["state"] = state;
+          
+          // Always reset assignee to "none" when state is updated  
+          task["assignee"] = "none";
           
           // Save changes
           tasksColl.save(task);
