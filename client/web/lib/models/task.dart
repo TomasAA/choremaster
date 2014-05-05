@@ -6,6 +6,7 @@ class TaskModel {
   bool state;
   bool review;
   String desc;
+  String assignee;
   int points;
   
   TaskModel();
@@ -16,6 +17,7 @@ class TaskModel {
     state = json["state"];
     review = json["review"];
     desc = json["desc"];
+    assignee = json["assignee"];
     points = json["points"];
   }
   
@@ -26,6 +28,7 @@ class TaskModel {
       "state": state,
       "review": review,
       "desc": desc,
+      "assignee": assignee,
       "points": points
     };
   }

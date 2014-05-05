@@ -80,11 +80,14 @@ class Tasks extends Vane {
     // Get name type from url, /tasks/$name/$type/$points
     task.type = path[2];
     
-    // Set state as default to false
-    task.state = false;
+    // Set state as default to true
+    task.state = true;
     
     // Set review as default to false
     task.review = false;
+    
+    // Set assignee as default to and empty string 
+    task.assignee = "";
 
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
@@ -272,7 +275,7 @@ class Tasks extends Vane {
   }
   
   Future getReview() {
-    // Get values from url, /tasks/review/$task/$review
+    // Get values from url, /tasks/review/$task
     var name = path[2];
     
     print("Getting review for task $name");
@@ -293,11 +296,80 @@ class Tasks extends Vane {
           close("Error, task $name could not be found");
         }
       }).catchError((e) {
+        log.warning("Unable to find task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to find task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
+  
+  Future setAssignee() {
+    // Get values from url, /tasks/assign/$task/$assignee
+    var name = path[2];
+    var assignee = path[3];
+    
+    print("Assiging task $name to user $assignee");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
+
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"assignee": assignee}).then((Map task) {
+        if(task != null) {          
+          // Update assignee 
+          task["assignee"] = assignee;
+          
+          // Save changes
+          tasksColl.save(task);
+        }
+        
+        close("ok");
+      }).catchError((e) {
         log.warning("Unable to update task $name: ${e}");
         close("error");
       });
     }).catchError((e) {
       log.warning("Unable to update task $name: ${e}");
+      close("error");
+    });
+    
+    return end;
+  }
+  
+  Future getAssignee() {
+    // Get values from url, /tasks/assign/$task
+    var name = path[2];
+    
+    print("Getting assignee for task $name");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var tasksColl = mongodb.collection("tasks");
+
+      // Find all data that is in the collection "users", make it to a list
+      tasksColl.findOne({"name": name}).then((Map task) {
+        if(task != null) {          
+          // Return assignee
+          close(task["assignee"]);
+        } else {
+          // Return state
+          close("Error, task $name could not be found");
+        }
+      }).catchError((e) {
+        log.warning("Unable to find task $name: ${e}");
+        close("error");
+      });
+    }).catchError((e) {
+      log.warning("Unable to find task $name: ${e}");
       close("error");
     });
     
