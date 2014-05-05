@@ -321,7 +321,7 @@ class Tasks extends Vane {
       var tasksColl = mongodb.collection("tasks");
 
       // Find all data that is in the collection "users", make it to a list
-      tasksColl.findOne({"assignee": assignee}).then((Map task) {
+      tasksColl.findOne({"name": name}).then((Map task) {
         if(task != null) {          
           // Update assignee 
           task["assignee"] = assignee;
