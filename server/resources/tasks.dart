@@ -86,8 +86,8 @@ class Tasks extends Vane {
     // Set review as default to false
     task.review = false;
     
-    // Set assignee as default to and empty string 
-    task.assignee = "";
+    // Set assignee as default to the string "none" 
+    task.assignee = "none";
 
     // Get name points from url, /tasks/$name/$type/$points
     task.points = path[3];
