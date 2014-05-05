@@ -188,8 +188,11 @@ class Tasks extends Vane {
           // If state changes from false to true, then reset assignee and give 
           // out points 
           if(task["state"] == false) {
+            print("Inside if 1");
             if(state == true) {
+              print("Inside if 2");
               if(task["assignee"] != "none") {
+                print("Inside if 3");
                 // Add points to assignee
                 addPoints(name, task["assignee"], 50);
                 
