@@ -184,8 +184,22 @@ class Tasks extends Vane {
 
       // Find all data that is in the collection "users", make it to a list
       tasksColl.findOne({"name": name}).then((Map task) {
-        if(task != null) {          
-          // Update state 
+        if(task != null) { 
+          // If state changes from true to false, then reset assignee and give 
+          // out points 
+          if(task["state"] == true) {
+            if(state == false) {
+              if(task["assignee"] != "none") {
+                // Add points to assignee
+                addPoints(name, task["assignee"], 50);
+                
+                // Reset assignee to "none" again 
+                task["assignee"] = "none";
+              }
+            }
+          }
+          
+          // Update state
           task["state"] = state;
           
           // Save changes
@@ -203,6 +217,32 @@ class Tasks extends Vane {
     });
     
     return end;
+  }
+  
+  void addPoints(String task, String assignee, int points) {
+    print("Adding $points new points to assignee $assignee after finising task $task");
+    
+    // Add item to database 
+    mongodb.then((mongodb) {
+      // Create a collection variable so we can access a specific collection of 
+      // data from the database
+      var usersColl = mongodb.collection("users");
+
+      // Find all data that is in the collection "users", make it to a list
+      usersColl.findOne({"user": assignee}).then((Map user) {
+        if(user != null) {          
+          // Add more points to user
+          user["points"] = user["points"] + points;
+          
+          // Save changes
+          usersColl.save(user);
+        }
+      }).catchError((e) {
+        log.warning("Unable to update user: ${e}");
+      });
+    }).catchError((e) {
+      log.warning("Unable to update user: ${e}");
+    });
   }
 
   Future getState() {
