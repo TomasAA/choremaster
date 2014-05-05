@@ -206,6 +206,9 @@ class Tasks extends Vane {
           // Always reset assignee to "none" when state is updated  
           task["assignee"] = "none";
           
+          // Always reset review to false when state is updated  
+          task["review"] = false;
+          
           // Save changes
           tasksColl.save(task);
         }
@@ -285,7 +288,12 @@ class Tasks extends Vane {
   Future setReview() {
     // Get values from url, /tasks/review/$task/$review
     var name = path[2];
-    var review = path[3];
+    var review;
+    if(path[3].toLowerCase() == "true") {
+      review = true;
+    } else {
+      review = false;
+    }
     
     print("Setting task $name to review $review");
     
